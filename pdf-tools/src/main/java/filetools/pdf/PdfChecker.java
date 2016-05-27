@@ -27,6 +27,8 @@ public class PdfChecker {
 	static long filesize;
 
 	static PrintWriter outputfile;
+	
+	//crashes when PDF file encrypted, line 87
 
 	public static void main(String args[]) throws IOException {
 

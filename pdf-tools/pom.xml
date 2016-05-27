@@ -36,7 +36,22 @@
 
 		</plugins>
 	</build>
+	<repositories>
+  <repository>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+    <id>opf-dev-mvn</id>
+    <name>opf-dev</name>
+    <url>http://artifactory.opf-labs.org/artifactory/opf-dev</url>
+  </repository>
+</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>org.openpreservation.jhove</groupId>
+			<artifactId>jhove-core</artifactId>
+			<version>1.14.6</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>preflight</artifactId>

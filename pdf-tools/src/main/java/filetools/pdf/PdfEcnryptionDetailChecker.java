@@ -13,6 +13,8 @@ public class PdfEcnryptionDetailChecker {
 
 	static String examinedFolder;
 	static PrintWriter outputfile;
+	
+	//crashes, does not complete xml and then xslt is lacking
 
 	public static void main(String args[]) throws IOException {
 		
