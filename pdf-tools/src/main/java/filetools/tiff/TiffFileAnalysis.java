@@ -223,7 +223,8 @@ public class TiffFileAnalysis {
 				temp.tiffTagName = temp.tiffTagName.replace(" ", "");
 				listTiffTags.add(temp);
 
-				xmlsummary.println("<" + temp.tiffTagName + ">" + temp.tiffTagContent + "</" + temp.tiffTagName + ">");
+			//	xmlsummary.println("<" + temp.tiffTagName + ">" + "<![CDATA[" + temp.tiffTagContent + "]]>" + "</" + temp.tiffTagName + ">");
+				//	xmlsummary.println("<" + temp.tiffTagName + ">" +  temp.tiffTagContent +  "</" + temp.tiffTagName + ">");
 
 				String unknownTiffTag = temp.tiffTagName;
 				unknownTiffTag = unknownTiffTag.replace(" ", "");
@@ -238,11 +239,12 @@ public class TiffFileAnalysis {
 				}
 			}
 			csvsummary.println("" + SEPARATOR + "");
+			xmlsummary.println("</TiffTags>");
 		} catch (Exception e) {
 			xmlsummary.println("<ErrorMessage>" + e + "</ErrorMessage>");
 			problematicTiffs++;
 		}
-		xmlsummary.println("</TiffTags>");
+
 
 		// how to get a certain tiff tag:
 		// TiffField tileWidthField =

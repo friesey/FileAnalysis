@@ -32,12 +32,11 @@ public class PdfCreationSoftwareDetective {
 
 			if (examinedFolder != null) {
 				ProducerType = new ArrayList<String>();
-				ArrayList<File> files = utilities.ListsFiles.getPaths(new File(examinedFolder),
-						new ArrayList<File>());
+				ArrayList<File> files = utilities.ListsFiles.getPaths(new File(examinedFolder), new ArrayList<File>());
 
 				outputfile = new PrintWriter(new FileWriter(examinedFolder + "//" + "CreationSoftwareDetective.txt"));
 				for (int i = 0; i < files.size(); i++) {
-					if (files.get(i) != null) /* is this necessary? */{
+					if (files.get(i) != null) /* is this necessary? */ {
 						try {
 							extension = Files.probeContentType(files.get(i).toPath());
 							if (extension != null) {
@@ -56,8 +55,8 @@ public class PdfCreationSoftwareDetective {
 											reader.close();
 											testfile.close();
 										} catch (IOException e) {
-											outputfile.println(files.get(i) + " is so damaged it cannot be parsed: "
-													+ e);
+											outputfile
+													.println(files.get(i) + " is so damaged it cannot be parsed: " + e);
 
 										}
 									}
@@ -111,19 +110,6 @@ public class PdfCreationSoftwareDetective {
 
 				outputfile.close();
 
-				// TODO: Create something that actually works. The following
-				// does not.
-
-				/*
-				 * 
-				 * PdfUtilities.PdfHeaderTest = new BufferedReader(new
-				 * FileReader(outputfile.toString()));
-				 * 
-				 * if (PdfUtilities.PdfHeaderTest.readLine() == null) {
-				 * System.out.println (
-				 * "The Outputfile will be empty because there are no (PDF)-Files in the Folder"
-				 * ); }
-				 */
 			}
 		} catch (FileNotFoundException e) {
 		}

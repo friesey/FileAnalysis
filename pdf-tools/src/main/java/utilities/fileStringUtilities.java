@@ -26,6 +26,18 @@ public class fileStringUtilities {
 		return filename;
 	}
 	
+	public static String getFileNameFromString(String file) {		
+		String filename;						
+		String[] parts = file.split(Pattern.quote("\\"));	
+		filename = parts[parts.length-1]; //filename including extension
+		
+		String[] segs = filename.split(Pattern.quote("."));
+		filename = segs[segs.length - 2];				
+		
+		return filename;
+	}
+	
+	
 	public static String getFileName(String filename) {								
 		String[] parts = filename.toString().split(Pattern.quote("\\"));	
 		filename = parts[parts.length-1]; //filename including extension		

@@ -21,11 +21,13 @@ import javax.swing.UIManager;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
-import org.apache.pdfbox.preflight.PreflightDocument;
-import org.apache.pdfbox.preflight.ValidationResult;
+import org.apache.pdfbox.preflight.*;
 import org.apache.pdfbox.preflight.ValidationResult.ValidationError;
 import org.apache.pdfbox.preflight.exception.SyntaxValidationException;
 import org.apache.pdfbox.preflight.parser.PreflightParser;
+
+
+//not yet switched to PDFBox 2.0
 
 public class PdfAValidator {
 
@@ -40,7 +42,7 @@ public class PdfAValidator {
 		try {
 
 			changecolor();
-			String path = "D://Eclipse New//PDFBoxLogo.gif";
+			String path = "D://Benutzer//PDFBoxLogo.gif";
 			String description = "PDFBox Logo";
 			ImageIcon icon = new ImageIcon(path, description);
 
@@ -111,7 +113,7 @@ public class PdfAValidator {
 
 									PDDocument pd = new PDDocument();
 									pd = PDDocument.load(files.get(i));
-
+																	
 									PDDocumentInformation info = pd.getDocumentInformation();
 									getsomeMetadata(info);
 									pd.close();
@@ -248,7 +250,7 @@ public class PdfAValidator {
 									}								
 									outputfile.println("</PdfAFile>");
 									shortSummary.println("</PdfAFile>");
-								}
+														}															
 							}
 						} catch (IOException e) {
 							JOptionPane.showMessageDialog(null, e, "error message", JOptionPane.ERROR_MESSAGE);

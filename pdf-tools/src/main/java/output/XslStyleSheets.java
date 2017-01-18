@@ -32,22 +32,30 @@ public class XslStyleSheets {
 		xslStyle.println("<table border =\"1\">");
 		xslStyle.println("<tr class=\"captionolive\">");
 		xslStyle.println("<th> FileName</th> ");
-	//	xslStyle.println("<th> MD5Checksum</th>");
+		// xslStyle.println("<th> MD5Checksum</th>");
 		xslStyle.println("<th> FileSizeKB</th>");
 		xslStyle.println("<th> Mimetype</th>");
 		xslStyle.println("<th> FileExtension</th>");
 		xslStyle.println("<th> PdfEncryption</th>");
-		xslStyle.println("<th> PdfA</th>");
+		xslStyle.println("<th> PDF Version</th>");
+		xslStyle.println("<th> PDF Type</th>");
+		xslStyle.println("<th> Pdf Creation Software</th>");
+		xslStyle.println("<th> Creation Year</th>");
 		xslStyle.println("</tr>");
 		xslStyle.println("<xsl:for-each select=\"FileAnalysisSummary/File\">");
+		xslStyle.println("<xsl:sort select=\"CreationYear\" />");
 		xslStyle.println("<tr class=\"captionolive\">");
+		//
 		xslStyle.println("<td><xsl:value-of select=\"FileName\"/></td>");
 		// xslStyle.println("<td><xsl:value-of select=\"MD5Checksum\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"FileSizeKB\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Mimetype\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"FileExtension\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"PdfEncryption\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"PdfVersion\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"PdfA\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"PdfCreationSoftware\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
 		xslStyle.println("</tr>");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
@@ -323,7 +331,8 @@ public class XslStyleSheets {
 
 	public static void TiffTagAnalysisCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(filetools.tiff.TiffFileAnalysis.examinedFolder + "//" + "TiffTagStyle.xsl"));
+		PrintWriter xslStyle = new PrintWriter(
+				new FileWriter(filetools.tiff.TiffFileAnalysis.examinedFolder + "//" + "TiffTagStyle.xsl"));
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
@@ -362,10 +371,11 @@ public class XslStyleSheets {
 		xslStyle.println("</tr>");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
-		
+
 		xslStyle.println("<h2>Examination of Tiff Tags</h2>");
 		xslStyle.println("<h3>Summary of Tiff Tags</h3>");
-		xslStyle.println("<h5>Description: All Tiff Tags found in the samle incl. description (if known) and number of occurance.</h5>");
+		xslStyle.println(
+				"<h5>Description: All Tiff Tags found in the samle incl. description (if known) and number of occurance.</h5>");
 		xslStyle.println("<xsl:value-of select=\"DifferentTiffTagsInSample\"/>");
 		xslStyle.println("<table border =\"1\">");
 		xslStyle.println("<tr class=\"captiontan\">");
@@ -561,12 +571,12 @@ public class XslStyleSheets {
 		xslStyle.println("<th>Year of Creation</th> ");
 		xslStyle.println("<th>Pdf Version</th> ");
 		/*
-		 * xslStyle.println("<th>Creation Date</th> ");
-		 * xslStyle.println("<th>Modification Date</th> ");
+		 * xslStyle.println("<th>Creation Date</th> "); xslStyle.println(
+		 * "<th>Modification Date</th> ");
 		 */
 		/*
-		 * xslStyle.println("<th>Title</th> ");
-		 * xslStyle.println("<th>Author</th> ");
+		 * xslStyle.println("<th>Title</th> "); xslStyle.println(
+		 * "<th>Author</th> ");
 		 */
 		xslStyle.println("<th>Software</th> ");
 		xslStyle.println("</tr>");
@@ -575,15 +585,15 @@ public class XslStyleSheets {
 		xslStyle.println("<tr class=\"captiontan\">");
 		xslStyle.println("<td><xsl:value-of select=\"FileName\"/></td>");
 		/*
-		 * xslStyle.println("<td><xsl:value-of select=\"MetadataEntries\"/></td>"
-		 * );
+		 * xslStyle.println(
+		 * "<td><xsl:value-of select=\"MetadataEntries\"/></td>" );
 		 */
 		xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"PdfVersion\"/></td>");
 		/*
 		 * xslStyle.println("<td><xsl:value-of select=\"CreationDate\"/></td>");
-		 * xslStyle
-		 * .println("<td><xsl:value-of select=\"ModificationDate\"/></td>");
+		 * xslStyle .println(
+		 * "<td><xsl:value-of select=\"ModificationDate\"/></td>");
 		 */
 		/*
 		 * xslStyle.println("<td><xsl:value-of select=\"Title\"/></td>");
@@ -685,6 +695,223 @@ public class XslStyleSheets {
 
 	public static void PdfEncryptionXsl(String xsltLocation) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public static void veraPdfXsl(String xsltLocation) throws IOException {
+
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(xsltLocation));
+
+		// TODO: customize veraPDF XSLT
+
+		xslStyle.println("<?xml version=\"1.0\"?>");
+		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
+		xslStyle.println("<xsl:template match=\"/\">");
+		xslStyle.println("<html>");
+		xslStyle.println("<head>");
+		xslStyle.println("<style>");
+		xslStyle.println("tr.captiondred {background-color: #FF0000}");
+		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
+		xslStyle.println("tr.captiongreen {background-color: #006400}");
+		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
+		xslStyle.println("tr.captionkhaki {background-color: #BDB76B}");
+		xslStyle.println("tr.captionolive {background-color: #808000}");
+		xslStyle.println("tr.captionwheat {background-color: #F5DEB3}");
+		xslStyle.println("</style>");
+		xslStyle.println("</head>");
+		xslStyle.println("<body>");
+
+		xslStyle.println("<h2>Summary of veraPDF Examination</h2>");
+
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<th>Failed</th> ");
+		xslStyle.println("<th>Valid</th>");
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"veraPDFSummary/PdfAValidity\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<td><xsl:value-of select=\"Fail\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Pass\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("<h2>Detailed Findings</h2>");
+
+		xslStyle.println("<table border=\"1\">");
+		xslStyle.println("<tr class=\"captiontan\">	");
+		xslStyle.println("<th>Examined PDF File</th>");
+		xslStyle.println("<th>Findings</th>");
+		xslStyle.println("</tr> ");
+		xslStyle.println("<xsl:for-each select=\"veraPDFSummary/item\">  ");
+		xslStyle.println("<tr class=\"captiontan\">	");
+		xslStyle.println("<td><xsl:value-of select=\"Filename\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"veraPDFExamination\" /></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("</body>");
+		xslStyle.println("</html>");
+		xslStyle.println("</xsl:template>");
+		xslStyle.println("</xsl:stylesheet>");
+
+		xslStyle.close();
+
+	}
+
+	public static void HtmlCustomizedXsl(String xsltLocation) throws IOException {
+
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(xsltLocation));
+
+		xslStyle.println("<?xml version=\"1.0\"?>");
+		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
+		xslStyle.println("<xsl:template match=\"/\">");
+		xslStyle.println("<html>");
+		xslStyle.println("<head>");
+		xslStyle.println("<style>");
+		xslStyle.println("tr.captiondred {background-color: #FF0000}");
+		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
+		xslStyle.println("tr.captiongreen {background-color: #006400}");
+		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
+		xslStyle.println("tr.captionkhaki {background-color: #BDB76B}");
+		xslStyle.println("tr.captionolive {background-color: #808000}");
+		xslStyle.println("tr.captionwheat {background-color: #F5DEB3}");
+		xslStyle.println("</style>");
+		xslStyle.println("</head>");
+		xslStyle.println("<body>");
+
+		xslStyle.println("<h2>Summary of Callas Conversion Quote</h2>");
+
+		xslStyle.println("<table border=\"1\">");
+		xslStyle.println("<tr class=\"captiontan\">	");
+		xslStyle.println("<th>Examined PDF Files</th>");
+		xslStyle.println("<th>Failed</th>");
+		xslStyle.println("<th>Successful</th>");
+		xslStyle.println("<th>FontProblem</th>");
+		xslStyle.println("</tr> ");
+		xslStyle.println("<xsl:for-each select=\"HtmlSummary/Summary\">  ");
+		xslStyle.println("<tr class=\"captiontan\">	");
+		xslStyle.println("<xsl:value-of select=\"examined\" />");
+		xslStyle.println("<td><xsl:value-of select=\"failed\" /></td>");
+		xslStyle.println("<td><xsl:value-of select=\"successful\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"FontProblems\" />	</td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("<h2>Callas Findings</h2>");
+
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<th>ID</th> ");
+		xslStyle.println("<th>Filename</th>");
+		xslStyle.println("<th>Callas Conversion</th>");
+		xslStyle.println("<th>FontProblems</th>");
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"HtmlSummary/Finding\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<td><xsl:value-of select=\"ID\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Filename\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"PdfAKonvertierung\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"FontProblems\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("</body>");
+		xslStyle.println("</html>");
+		xslStyle.println("</xsl:template>");
+		xslStyle.println("</xsl:stylesheet>");
+
+		xslStyle.close();
+
+	}
+
+	public static void imageMagickXsl(String xsltLocation) throws IOException {
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(xsltLocation));
+
+		xslStyle.println("<?xml version=\"1.0\"?>");
+		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
+		xslStyle.println("<xsl:template match=\"/\">");
+		xslStyle.println("<html>");
+		xslStyle.println("<head>");
+		xslStyle.println("<style>");
+		xslStyle.println("tr.captiondred {background-color: #FF0000}");
+		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
+		xslStyle.println("tr.captiongreen {background-color: #006400}");
+		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
+		xslStyle.println("tr.captionkhaki {background-color: #BDB76B}");
+		xslStyle.println("tr.captionolive {background-color: #808000}");
+		xslStyle.println("tr.captionwheat {background-color: #F5DEB3}");
+		xslStyle.println("</style>");
+		xslStyle.println("</head>");
+		xslStyle.println("<body>");
+
+		xslStyle.println("<h2>Summary of imageMagick TIFF Examination</h2>");
+
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<th>Files analysed</th> ");
+		xslStyle.println("<th>corrupt</th>");
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"imageMagickSummary/Summary\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<td><xsl:value-of select=\"analysedTiff\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"corruptTiff\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("<h2>All Messages in Sample</h2>");
 		
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<th>Error Messages</th> ");
+		xslStyle.println("<th>Occurance in Sample</th>");
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"imageMagickSummary/AllMessages/Message\">");
+		xslStyle.println("<tr class=\"captionolive\">");
+		xslStyle.println("<td><xsl:value-of select=\"MessageText\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Occurance\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("<h2>Detailed Findings</h2>");
+
+		xslStyle.println("<table border=\"1\">");
+		xslStyle.println("<tr class=\"captiontan\">	");
+		xslStyle.println("<th>Number</th>");
+		xslStyle.println("<th>Examined TIFF File</th>");
+		xslStyle.println("<th>valid</th>");
+		xslStyle.println("</tr> ");
+		xslStyle.println("<xsl:for-each select=\"imageMagickSummary/FileAnalysis/File\">  ");
+
+		xslStyle.println("<xsl:if test=\"valid[contains(text(),'false')]\">");
+		xslStyle.println("<tr class=\"captionred\">");
+		xslStyle.println("<td><xsl:value-of select=\"Number\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"Filename\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"valid\" /></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:if>	");
+
+		xslStyle.println("<xsl:if test=\"valid[contains(text(),'true')]\">");
+		xslStyle.println("<tr class=\"captiongreen\">");
+		xslStyle.println("<td><xsl:value-of select=\"Number\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"Filename\" />	</td>");
+		xslStyle.println("<td><xsl:value-of select=\"valid\" /></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:if>	");
+
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("</body>");
+		xslStyle.println("</html>");
+		xslStyle.println("</xsl:template>");
+		xslStyle.println("</xsl:stylesheet>");
+
+		xslStyle.close();
 	}
 }

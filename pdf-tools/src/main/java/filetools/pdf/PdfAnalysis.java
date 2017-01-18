@@ -38,24 +38,29 @@ public class PdfAnalysis {
 	public static boolean testPdfOk(File file) throws IOException {
 		if (filetools.GenericFileAnalysis.testFileHeaderPdf(file) == true) {
 
-			PDDocument testfile = PDDocument.load(file);
-			if (!testfile.isEncrypted()) {
-				if (!checkBrokenPdf(file.toString())) {
-					return true;
+			try {
+
+				PDDocument testfile = PDDocument.load(file);
+				if (!testfile.isEncrypted()) {
+					if (!checkBrokenPdf(file.toString())) {
+						return true;
+					} else {
+						System.out.println("Broken Pdf");
+						return false;
+					}
 				} else {
-					System.out.println("Broken Pdf");
+					System.out.println("Is encrypted");
 					return false;
 				}
-			} else {
-				System.out.println("Is encrypted");
+
+			} catch (Exception e) {
 				return false;
 			}
-
-		} else {
-			System.out.println("No PDF Header");
-			return false;
 		}
 
+		else
+			System.out.println("No PDF Header");
+		return false;
 	}
 
 	/**
@@ -85,6 +90,10 @@ public class PdfAnalysis {
 						pdfType = "PDF 1.4 or higher";
 					}
 				}
+
+				// falls keine XMP Metadata, bleibt der String bei "No XMP
+				// Metadata"
+
 			} else {
 				pdfType = "PDF 1.0 - 1.3";
 			}
@@ -215,9 +224,7 @@ public class PdfAnalysis {
 	 * exceptions. *
 	 * 
 	 * @param file
-	 *            (should be Pdf)
-	 * @return: boolean
-	 * @throws
+	 *            (should be Pdf) @return: boolean @throws
 	 */
 
 	/*

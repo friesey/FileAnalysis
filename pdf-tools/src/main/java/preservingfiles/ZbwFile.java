@@ -8,8 +8,11 @@ import java.nio.file.Files;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
-public class ZbwFile implements Serializable{ //TODO: does not go quite smoothly. An ID seems to be missing. 
+public class ZbwFile implements Serializable { // TODO: does not go quite
+												// smoothly. An ID seems to be
+												// missing.
 	/**
 	 * 
 	 */
@@ -20,9 +23,8 @@ public class ZbwFile implements Serializable{ //TODO: does not go quite smoothly
 	String mimetype;
 	String fileExtension;
 	File zbwFile;
+	boolean isEncrypted;
 	long size;
-	
-
 
 	// size
 	public ZbwFile() {
@@ -49,11 +51,11 @@ public class ZbwFile implements Serializable{ //TODO: does not go quite smoothly
 		String[] parts = path.toString().split(Pattern.quote("\\"));
 		fileName = parts[parts.length - 1]; // filename including extension
 		String[] segs = fileName.split(Pattern.quote("."));
-		if (segs.length > 1){
-		fileName = segs[segs.length - 2];
-		}
-		else {
-			fileName = segs[segs.length - 1]; // some file names do not have an extension
+		if (segs.length > 1) {
+			fileName = segs[segs.length - 2];
+		} else {
+			fileName = segs[segs.length - 1]; // some file names do not have an
+												// extension
 		}
 		return fileName;
 	}
@@ -78,18 +80,31 @@ public class ZbwFile implements Serializable{ //TODO: does not go quite smoothly
 
 	public String getFileExtension(String path) {
 
-		String[] segs = path.split(Pattern.quote("\\"));		
+		String[] segs = path.split(Pattern.quote("\\"));
 		segs = segs[segs.length - 1].split(Pattern.quote("."));
-		if (segs.length > 1){
-			return segs[segs.length-1];
-			}
-			else {
-				return fileExtension = "none"; // some file names do not have an extension
-			}
-		
-		
-		
-		
+		if (segs.length > 1) {
+			return segs[segs.length - 1];
+		} else {
+			return fileExtension = "none"; // some file names do not have an
+											// extension
+		}
+	}
+
+	
+	public boolean isEncrypted (File file) throws IOException {
+		// try {
+		PDDocument testfile = PDDocument.load(file);
+		if (!testfile.isEncrypted()) {
+			isEncrypted = false;
+			return false;
+		} else {
+			isEncrypted = true;
+			System.out.println ("Encrypted");
+			return true;
+			
+		}
+			// } catch (Exception e) {return false;return isEncrypted; }
+
 	}
 
 	// TODO: Formaterkennungstool wie DROID einbinden
